@@ -2,20 +2,26 @@
 
 with pkgs;
 
-let tensorflow-tool = callPackage ./default-tensorflow.nix { };
-in
+#let tensorflow-tool = callPackage ./default-tensorflow.nix {};
+#in
+
 stdenv.mkDerivation {
   name = "tensorflow-env";
-  version = "0.99";
+  version = "1.0.0";
   buildInputs =
   [
     which clang swig protobuf
-    tensorflow-tool.bazel
+    #tensorflow-tool.bazel
   ]
+#  ++
+#  (with python27Packages;
+#  [
+#    numpy scipy mock
+#  ])
   ++
-  (with python27Packages;
+  (with python35Packages;
   [
-    numpy scipy mock
+    ipython jupyter ipyparallel
+    numpy scipy tensorflow
   ]);
-
 }
